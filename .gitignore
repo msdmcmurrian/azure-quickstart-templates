@@ -37,3 +37,12 @@ test/template-validation-tests/mochawesome-report/*
 test/AzTemplateToolKit.zip
 test/arm-template-toolkit.zip
 test/ci-scripts/azuredeploy.parameters.new.json
+101-custom-rp-with-function/src/obj/extensions.csproj.nuget.dgspec.json
+101-custom-rp-with-function/src/obj/extensions.csproj.nuget.g.props
+101-custom-rp-with-function/src/obj/extensions.csproj.nuget.g.targets
+101-custom-rp-with-function/src/obj/project.assets.json
+101-custom-rp-with-function/src/obj/project.nuget.cache
+101-custom-rp-with-function/src/obj/Debug/netstandard2.0/extensions.AssemblyInfo.cs
+101-custom-rp-with-function/src/obj/Debug/netstandard2.0/extensions.AssemblyInfoInputs.cache
+101-custom-rp-with-function/src/obj/Debug/netstandard2.0/extensions.assets.cache
+101-custom-rp-with-function/src/obj/Debug/netstandard2.0/extensions.csprojAssemblyReference.cache
