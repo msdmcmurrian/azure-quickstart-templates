@@ -48,6 +48,17 @@
         "description": "Specifies whether Azure Resource Manager is permitted to retrieve secrets from the key vault."
       }
     },
+    "enableRbacAuthorization": {
+      "type": "bool",
+      "defaultValue": true,
+      "allowedValues": [
+        true,
+        false
+      ],
+      "metadata": {
+        "description": "Specifies whether Azure Resource Manager will use RBAC to secure it or explicitly assigning the permissions"
+      }
+    },
     "tenantId": {
       "type": "string",
       "defaultValue": "[subscription().tenantId]",
@@ -107,43 +118,47 @@
     {
       "type": "Microsoft.KeyVault/vaults",
       "name": "[parameters('keyVaultName')]",
-      "apiVersion": "2018-02-14",
+      "apiVersion": "2019-09-01",
       "location": "[parameters('location')]",
       "properties": {
         "enabledForDeployment": "[parameters('enabledForDeployment')]",
         "enabledForDiskEncryption": "[parameters('enabledForDiskEncryption')]",
         "enabledForTemplateDeployment": "[parameters('enabledForTemplateDeployment')]",
+        "enableRbacAuthorization": "[parameters('enableRbacAuthorization')]",
         "tenantId": "[parameters('tenantId')]",
-        "accessPolicies": [
-          {
-            "objectId": "[parameters('objectId')]",
-            "tenantId": "[parameters('tenantId')]",
-            "permissions": {
-              "keys": "[parameters('keysPermissions')]",
-              "secrets": "[parameters('secretsPermissions')]"      
-            }
-          }
-        ],
         "sku": {
           "name": "[parameters('skuName')]",
           "family": "A"
         },
         "networkAcls": {
-            "defaultAction": "Allow",
-            "bypass": "AzureServices"
+          "defaultAction": "Allow",
+          "bypass": "AzureServices"
         }
       }
     },
     {
       "type": "Microsoft.KeyVault/vaults/secrets",
       "name": "[concat(parameters('keyVaultName'), '/', parameters('secretName'))]",
-      "apiVersion": "2018-02-14",
+      "apiVersion": "2019-09-01",
       "location": "[parameters('location')]",
       "dependsOn": [
         "[resourceId('Microsoft.KeyVault/vaults', parameters('keyVaultName'))]"
       ],
       "properties": {
         "value": "[parameters('secretValue')]"
+      }
+    },
+    {
+      "name": "Contributor Role Assignment",
+      "type": "Microsoft.Authorization/roleAssignments",
+      "apiVersion": "2019-09-01",
+      "properties": {
+        "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions','Contributor')]",
+        "principalId": "caa7127b-b3d7-481e-a007-744b70e228cb",
+        "principalType": "User",
+        "canDelegate": "false",
+        "scope": "[resourceId('Microsoft.KeyVault/vaults', parameters('keyVaultName'))]",
+        "description": "Default User"
       }
     }
   ]
