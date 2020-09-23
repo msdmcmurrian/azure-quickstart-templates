@@ -5,14 +5,14 @@
         "vNets": {
             "value": [
                 {
-                    "name": "hub-vnet",
+                    "name": "damcmurr-mgt-vnet",
                     "addressPrefixes": [
-                        "10.1.0.0/16"
+                        "10.2.0.0/16"
                     ],
                     "subnets": [
                         {
                             "name": "PrivateLinkSubnet",
-                            "addressPrefix": "10.1.1.0/24",
+                            "addressPrefix": "10.2.1.0/24",
                             "udrName": null,
                             "nsgName": null,
                             "delegations": null,
@@ -24,12 +24,12 @@
                 {
                     "name": "spoke-vnet",
                     "addressPrefixes": [
-                        "10.2.0.0/16"
+                        "10.4.0.0/16"
                     ],
                     "subnets": [
                         {
                             "name": "AppSvcSubnet",
-                            "addressPrefix": "10.2.1.0/24",
+                            "addressPrefix": "10.4.1.0/24",
                             "udrName": null,
                             "nsgName": null,
                             "privateEndpointNetworkPolicies": "Enabled",
